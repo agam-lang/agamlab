@@ -1,0 +1,3 @@
+@lang.advance
+import agam_std.stats
+fn main() -> i32 { return 0; }
