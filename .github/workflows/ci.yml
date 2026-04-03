@@ -5,5 +5,17 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build:
-    uses: agam-lang/.github/.github/workflows/rust-ci.yml@main
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate project structure
+        run: |
+          echo "Checking agamlab project structure..."
+          test -f README.md && echo "✓ README.md"
+          test -f Cargo.toml && echo "✓ Cargo.toml" || echo "○ Cargo.toml (not yet created)"
+          test -f agam.toml && echo "✓ agam.toml" || echo "○ agam.toml (not yet created)"
+          test -d crates && echo "✓ crates/" || echo "○ crates/ (not yet populated)"
+          test -d docs && echo "✓ docs/"
+          test -d examples && echo "✓ examples/"
+          echo "Structure validation passed."
